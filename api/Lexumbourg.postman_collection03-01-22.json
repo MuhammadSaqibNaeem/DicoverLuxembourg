@@ -1,0 +1,59 @@
+{
+  "info": {
+    "_postman_id": "08fece2c-d073-4d80-ad59-653f91ce2d0f",
+    "name": "Lexumbourg",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25546038"
+  },
+  "item": [
+    {
+      "name": "Historical Places",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/get_historical_palces",
+          "host": ["{{base_url}}"],
+          "path": ["api", "get_historical_palces"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Events",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/get_events",
+          "host": ["{{base_url}}"],
+          "path": ["api", "get_events"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://nbspakistan.org/lexumbourg",
+      "type": "default"
+    }
+  ]
+}
