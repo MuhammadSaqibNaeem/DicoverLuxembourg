@@ -4,7 +4,10 @@ import {
   View,
   Image,
   SafeAreaView,
+  ScrollView,
   Dimensions,
+  Pressable,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import MapView, {
@@ -36,14 +39,13 @@ import {
 import Entypo from "react-native-vector-icons/Entypo";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import ImageSlider from "react-native-image-slider";
-import { ScrollView } from "react-native-gesture-handler";
+// import { ScrollView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 import MapViewDirections from "react-native-maps-directions";
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 export const GrandDucalPalace = ({ navigation, route }) => {
   const [coords, setCoords] = useState([]);
-  const { id, name, image, address, description, created_at, updated_at, geo } =
-    route.params;
+  const { id, name, image, address, description, created_at, updated_at, geo } = route.params;
   const [location, setLocation] = useState(null);
   // const [coordinate, setCoordinate] = useState({
   //   latitude: 37.78825,
@@ -87,18 +89,36 @@ export const GrandDucalPalace = ({ navigation, route }) => {
   //   );
   // }, []);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     const { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       alert("Permission to access location was denied");
+  //     }
+
+  //     let currentLocation = await Location.getCurrentPositionAsync({});
+  //     console.log("🚀 ~ file: grandducalpalace.screen.js:98 ~ currentLocation:", currentLocation)
+  //     setLocation(currentLocation);
+  //   })();
+  // }, []);
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        console.log("Permission to access location was denied");
+    const getLocation = async () => {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Permission to access location was denied');
+        }
+
+        let currentLocation = await Location.getCurrentPositionAsync({});
+        // console.log('Current location:', currentLocation);
+        setLocation(currentLocation);
+      } catch (error) {
+        console.error('Error occurred while accessing location:', error);
       }
+    };
 
-      let currentLocation = await Location.getCurrentPositionAsync({});
-      setLocation(currentLocation);
-    })();
+    getLocation();
   }, []);
-
   if (!location) {
     return (
       <View style={styles.container}>
@@ -142,6 +162,12 @@ export const GrandDucalPalace = ({ navigation, route }) => {
   // ]);
   return (
     <View style={{ flex: 1 }}>
+      <View style={{ backgroundColor: 'white', paddingLeft: hp(3), height: hp(10), flexDirection: 'row', paddingTop: hp(5) }}>
+        <Pressable onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back-outline" size={25} color="black" />
+        </Pressable>
+        <Text style={[styles.secondViewTextStyle, { marginLeft: wp(8) }]}>{name}</Text>
+      </View>
       <ScrollView>
         <View
           style={{
@@ -203,8 +229,8 @@ export const GrandDucalPalace = ({ navigation, route }) => {
                 timePrecision="none"
                 language="en"
                 strokeColor={"red"}
-                // splitWaypoints={3}
-                // coordinate={coordinate}
+              // splitWaypoints={3}
+              // coordinate={coordinate}
               />
 
               {/* {coords.length > 0 && <Polyline coordinates={coords} />} */}

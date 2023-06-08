@@ -20,8 +20,9 @@ export const AttractionInfoCard = ({ item }) => {
   const heart = <FontAwesome name="heart" size={25} color={iconColor} />;
   const { id, name, geo, address, description, created_at, updated_at, image } =
     item.item;
+  // console.log("🚀 ~ file: attractions-info-component.js:22 ~ AttractionInfoCard ~ geo:", geo)
 
-  console.log(address);
+  // console.log(address);
 
   useEffect(() => {
     const isInArray = data.some((item) => item.id === id);

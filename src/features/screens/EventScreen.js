@@ -123,21 +123,43 @@ const EventScreen = ({ navigation }) => {
   // console.log("data ===== Event ============= name ::", data[0].name);
 
   useEffect(() => {
+    // async function fetchData() {
+    //   try {
+    //     const response = await fetch(
+    //       "https://nbspakistan.org/lexumbourg/api/get_events"
+    //     );
+    //     const json = await response.json();
+    //     setData(json.data);
+    //     console.log("data ===== Event list  ============= ::", json.data);
+    //   } catch (e) {
+    //     setError(e);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // }
+    // fetchData();
     async function fetchData() {
       try {
         const response = await fetch(
           "https://nbspakistan.org/lexumbourg/api/get_events"
         );
-        const json = await response.json();
-        setData(json.data);
+        console.log("🚀 ~ file: EventScreen.js:146 ~ fetchData ~ response:", response)
+        if (!response.ok) {
+          throw new Error("Request failed with status code " + response.status);
+        }
+        // const json = await response.json();
+        // setData(json.data);
         // console.log("data ===== Event list  ============= ::", json.data);
-      } catch (e) {
-        setError(e);
+      } catch (error) {
+        setError(error);
+        console.log("Error occurred:", error);
       } finally {
         setLoading(false);
       }
     }
+
     fetchData();
+
   }, []);
 
   if (loading) {

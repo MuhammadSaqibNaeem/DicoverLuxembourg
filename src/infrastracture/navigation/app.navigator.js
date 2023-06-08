@@ -39,7 +39,7 @@ export const AppNavigator = () => (
           component={GelleFra}
         />
         <Stack.Screen
-          options={{ headerShown: true }}
+          options={{ headerShown: false }}
           name="GrandDucalPalace"
           component={GrandDucalPalace}
         />

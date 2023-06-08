@@ -88,7 +88,7 @@ export const MapScreen = () => {
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestPermissionsAsync();
+      let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         console.log("Permission to access location was denied");
       }
@@ -207,8 +207,8 @@ export const MapScreen = () => {
                       longitude: parseFloat(item.geo.longitude),
                     }}
                     title={item.name}
-                    // description={item.description}
-                    // identifier={item.name}
+                  // description={item.description}
+                  // identifier={item.name}
                   />
                 </>
               );
