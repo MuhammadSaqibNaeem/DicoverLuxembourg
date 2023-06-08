@@ -166,7 +166,7 @@ export const GrandDucalPalace = ({ navigation, route }) => {
         <Pressable onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={25} color="black" />
         </Pressable>
-        <Text style={[styles.secondViewTextStyle, { marginLeft: wp(8) }]}>{name}</Text>
+        <Text style={[styles.secondViewTextStyle, { marginLeft: wp(8) }]}>{name.slice(0, 30)}</Text>
       </View>
       <ScrollView>
         <View
