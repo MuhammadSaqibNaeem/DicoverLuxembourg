@@ -54,7 +54,7 @@ export const GrandDucalPalace = ({ navigation, route }) => {
 
   // const [initialPosition, setInitialPosition] = useState(INITIAL_POSITION);
 
-  const origin = { latitude: geo.latitude, longitude: geo.longitude };
+  const origin = { latitude: geo?.latitude, longitude: geo?.longitude };
   const destination = {
     latitude: 49.612429922729206,
     longitude: 6.133821654146095,
@@ -89,22 +89,11 @@ export const GrandDucalPalace = ({ navigation, route }) => {
   //   );
   // }, []);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       alert("Permission to access location was denied");
-  //     }
 
-  //     let currentLocation = await Location.getCurrentPositionAsync({});
-  //     console.log("🚀 ~ file: grandducalpalace.screen.js:98 ~ currentLocation:", currentLocation)
-  //     setLocation(currentLocation);
-  //   })();
-  // }, []);
   useEffect(() => {
     const getLocation = async () => {
       try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
+        const { status } = await Location.requestBackgroundPermissionsAsync();
         if (status !== 'granted') {
           alert('Permission to access location was denied');
         }
@@ -163,9 +152,9 @@ export const GrandDucalPalace = ({ navigation, route }) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ backgroundColor: 'white', paddingLeft: hp(3), height: hp(10), flexDirection: 'row', paddingTop: hp(5) }}>
-        <Pressable onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={25} color="black" />
-        </Pressable>
+        </TouchableOpacity>
         <Text style={[styles.secondViewTextStyle, { marginLeft: wp(8) }]}>{name.slice(0, 30)}</Text>
       </View>
       <ScrollView>
@@ -201,19 +190,18 @@ export const GrandDucalPalace = ({ navigation, route }) => {
               style={styles.map}
               provider={PROVIDER_GOOGLE}
               initialRegion={INITIAL_POSITION}
-              // initialRegion={initialPosition}
+              // loadingEnabled
               showsUserLocation
-              loadingEnabled
             >
               <Marker
                 key={id}
                 coordinate={{
-                  latitude: parseFloat(geo.latitude),
-                  longitude: parseFloat(geo.longitude),
+                  latitude: parseFloat(geo?.latitude),
+                  longitude: parseFloat(geo?.longitude),
                 }}
                 title={name}
                 description={description}
-                identifier={name}
+              // identifier={name}
               />
               <MapViewDirections
                 // initialPosition={INITIAL_POSITION}
@@ -221,13 +209,17 @@ export const GrandDucalPalace = ({ navigation, route }) => {
                   latitude: location.coords.latitude,
                   longitude: location.coords.longitude,
                 }}
-                destination={destination}
+                destination={{
+                  latitude: parseFloat(geo?.latitude),
+                  longitude: parseFloat(geo?.longitude),
+                }}
                 apikey={GOOGLE_MAPS_APIKEY}
-                strokeWidth={12}
-                mode="DRIVING"
-                resetOnChange={true}
-                timePrecision="none"
-                language="en"
+                strokeWidth={8}
+                // mode="DRIVING"
+                // resetOnChange={true}
+                // timePrecision="none"
+                // optimizeWaypoints={true}
+                // language="en"
                 strokeColor={"red"}
               // splitWaypoints={3}
               // coordinate={coordinate}
