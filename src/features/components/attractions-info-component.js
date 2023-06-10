@@ -18,11 +18,7 @@ export const AttractionInfoCard = ({ item }) => {
   const { data, getIconColor, handleIcon, modifyArray } = useFavourite();
   const [iconColor, setIconColor] = useState("black");
   const heart = <FontAwesome name="heart" size={25} color={iconColor} />;
-  const { id, name, geo, address, description, created_at, updated_at, image } =
-    item.item;
-  // console.log("🚀 ~ file: attractions-info-component.js:22 ~ AttractionInfoCard ~ geo:", geo)
-
-  // console.log(address);
+  const { id, name, geo, address, description, created_at, updated_at, image } = item.item;
 
   useEffect(() => {
     const isInArray = data.some((item) => item.id === id);
@@ -38,7 +34,7 @@ export const AttractionInfoCard = ({ item }) => {
     <>
       {/* First Card Grand Ducal Palace */}
 
-      <StyledAttractionCard>
+      {geo && <StyledAttractionCard>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("GrandDucalPalace", {
@@ -86,7 +82,7 @@ export const AttractionInfoCard = ({ item }) => {
         >
           <StyledCardIcon>{heart}</StyledCardIcon>
         </TouchableOpacity>
-      </StyledAttractionCard>
+      </StyledAttractionCard>}
     </>
     // <Text>{item.item.name}</Text>
   );

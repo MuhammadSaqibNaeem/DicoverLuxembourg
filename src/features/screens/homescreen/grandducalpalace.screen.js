@@ -19,7 +19,7 @@ import MapView, {
 import { decode } from "@mapbox/polyline"; //please install this package before running!
 // import Geolocation from "@react-native-community/geolocation";
 import * as Location from "expo-location";
-
+import { BallIndicator } from "react-native-indicators";
 const { width, height } = Dimensions.get("window");
 
 const ASPECT_RATIO = width / height;
@@ -111,7 +111,7 @@ export const GrandDucalPalace = ({ navigation, route }) => {
   if (!location) {
     return (
       <View style={styles.container}>
-        <Text>Waiting for location...</Text>
+        <BallIndicator color="red" />
       </View>
     );
   }
@@ -186,7 +186,7 @@ export const GrandDucalPalace = ({ navigation, route }) => {
           <Text style={styles.secondViewTextStyle}>Map</Text>
 
           <View style={{ flex: 1 }}>
-            <MapView
+            {geo && <MapView
               style={styles.map}
               provider={PROVIDER_GOOGLE}
               initialRegion={INITIAL_POSITION}
@@ -226,7 +226,7 @@ export const GrandDucalPalace = ({ navigation, route }) => {
               />
 
               {/* {coords.length > 0 && <Polyline coordinates={coords} />} */}
-            </MapView>
+            </MapView>}
           </View>
         </View>
         <View style={{ height: hp("8%") }}></View>
